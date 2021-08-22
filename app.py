@@ -10,6 +10,11 @@ UPLOAD_FOLDER = './flask app/assets/images'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 # Create Database if it doesnt exist
 
+# load all the models
+resnet_ct = load_model('models/resnet_ct.h5')
+vgg_ct = load_model('models/vgg_ct.h5')
+inception_ct = load_model('models/inception_ct.h5')
+xception_ct = load_model('models/xception_ct.h5')
 
 app = Flask(__name__,static_url_path='/assets',
             static_folder='./flask app/assets', 
@@ -49,11 +54,6 @@ def uploaded_ct():
         if file:
             # filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], 'upload_ct.jpg'))
-
-   resnet_ct = load_model('models/resnet_ct.h5')
-   vgg_ct = load_model('models/vgg_ct.h5')
-   inception_ct = load_model('models/inception_ct.h5')
-   xception_ct = load_model('models/xception_ct.h5')
 
    image = cv2.imread('./flask app/assets/images/upload_ct.jpg') # read file 
    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # arrange format as per keras
